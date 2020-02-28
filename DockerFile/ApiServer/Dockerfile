@@ -14,4 +14,5 @@ RUN yarn init --yes
 RUN yarn add express cors body-parser mongoose
 RUN yarn add --dev nodemon
 
+CMD [ "yarn","start" ]
 

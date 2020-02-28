@@ -24,6 +24,7 @@
         </button>
       </form>
     </nav>
+    <PostBookMark />
    <div class="wrapper">
       <p v-if="loading" class="text-centered">
         Loading...
@@ -37,17 +38,19 @@
    </div>
   </div>
 </template>
-
+<script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
 <script>
 
 import axios from 'axios';
 import ImageCard from '../components/ImageCard.vue';
+import PostBookMark from '../components/PostBookMarkForm.vue';
 import config from '../../config';
 
 export default {
   name: 'home',
   components: {
     ImageCard,
+    PostBookMark
   },
   data() {
     return {

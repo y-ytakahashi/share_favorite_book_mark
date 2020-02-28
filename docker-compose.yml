@@ -21,6 +21,7 @@ services:
       - 3000:3000
     depends_on:
       - mongo
+    command: yarn start
     volumes:
       - ./server/api:/server/api
       - ./server/app:/server/app
