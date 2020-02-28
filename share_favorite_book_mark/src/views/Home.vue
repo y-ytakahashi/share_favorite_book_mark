@@ -6,23 +6,24 @@
           <span class='screen-reader-only'>Search:</span>
           <input
             v-model="tag"
-            placeholder="Search for photos"
+            placeholder="Search for book mark"
             type="text"
             class="searchbar-input">
         </label>
         <button
           type="submit"
           class="btn btn--green btn--go"
-          @click.prevent="search">
-            Go
+          @click.prevent="ShowFavoritUrls">
+            Show
         </button>
         <button
           type="submit"
           class="btn btn--green btn--go"
           @click.prevent="ShowFavoritUrls">
-            Show Favorit Urls
+            Share
         </button>
       </form>
+
     </nav>
     <PostBookMark />
    <div class="wrapper">
@@ -59,6 +60,9 @@ export default {
       images: [],
       urls: [],
     };
+  },
+  computed:{
+  //ページが読み込まれたときに、登録済のブックマークを表示したい
   },
   methods: {
     search() {

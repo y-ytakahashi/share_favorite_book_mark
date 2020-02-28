@@ -2,7 +2,15 @@
 <div>
   <section class="post_form">
     <form>
-      <label>URL<input type="text" v-model="bookmark"></label>
+      <fieldset>
+        <div>
+          <label for="input_category">Category</label>
+          <input name="input_category" type="text" placeholder="input share url" v-model="category">
+        </div>
+        <input type="text" placeholder="input share title" v-model="title">
+        <input type="text" placeholder="input share comment" v-model="comment">
+        <input type="text" placeholder="input share author" v-model="author">
+      </fieldset>
       <button type="submit" @click.prevent="do_post">Share!!!</button>
     </form>
   </section>
@@ -13,6 +21,17 @@
 
 .post_form {
   text-align: center;
+}
+input {
+  border: solid 2px gainsboro;
+  border-radius: 10px;
+}
+input:focus {
+    box-shadow: 0 0 5px 0 rgba(255,153,0,1);
+    border:none;
+    padding: 2px 8px;
+    border-radius: 10px;
+    outline: none;
 }
 
 </style>
