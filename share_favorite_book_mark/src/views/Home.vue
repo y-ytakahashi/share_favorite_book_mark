@@ -2,14 +2,16 @@
   <div>
     <nav class="navbar">
       <form class="searchbar">
-        <label>
-          <span class='screen-reader-only'>Search:</span>
-          <input
-            v-model="tag"
-            placeholder="Search for book mark"
-            type="text"
-            class="searchbar-input">
-        </label>
+        <div>
+          <label>
+            <span class='screen-reader-only'></span>
+            <input
+              v-model="tag"
+              placeholder="Search for book mark"
+              type="text"
+              class="searchbar-input">
+          </label>
+        </div>
         <button
           type="submit"
           class="btn btn--green btn--go"
@@ -19,13 +21,17 @@
         <button
           type="submit"
           class="btn btn--green btn--go"
-          @click.prevent="ShowFavoritUrls">
-            Share
+          @click.prevent="openModal">
+            create
         </button>
       </form>
-
     </nav>
-    <PostBookMark />
+    <div id="overlay" v-show="showContent">
+      <div id="content">
+        <PostBookMark />
+      <p><button v-on:click="closeModal" >close</button></p>
+    </div>
+    </div>
    <div class="wrapper">
       <p v-if="loading" class="text-centered">
         Loading...
@@ -59,6 +65,7 @@ export default {
       tag: '',
       images: [],
       urls: [],
+      showContent: false
     };
   },
   computed:{
@@ -93,23 +100,12 @@ export default {
         url: 'http://localhost:3000/bookmarks',
       });
     },
-
-    fetchImages() {
-      return axios({
-        method: 'get',
-        url: 'https://api.flickr.com/services/rest',
-        params: {
-          method: 'flickr.photos.search',
-          api_key: config.api_key,
-          tags: this.tag,
-          extras: 'url_n, owner_name, date_taken, views',
-          page: 1,
-          format: 'json',
-          nojsoncallback: 1,
-          per_page: 30,
-        },
-      });
+    openModal: function(){
+      this.showContent = true
     },
+    closeModal: function(){
+      this.showContent = false
+    }
   },
 };
 </script>
@@ -119,7 +115,7 @@ export default {
   height: 1px;
   width: 1px;
   position: absolute;
-  left: -100000px;
+  // left: -100000px;
 }
 .text-centered {
   text-align: center;
@@ -150,8 +146,8 @@ export default {
 .searchbar {
   width: 300px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  // align-items: center;
+   justify-content: flex-start;
   @media only screen and (max-width: 549px) {
     width: 100%;
     label {
@@ -185,5 +181,42 @@ export default {
 .btn--go {
   padding: .5rem 2rem;
   margin-left: 1rem;
+}
+.create_article_button {
+  text-align: left;
+  padding-left: 40px;
+}
+.message {
+    background: #eee;
+    border: 2px solid #333;
+    border-radius: 1em;
+    padding: 1em;
+}
+.message.error {
+    background: #f30;
+    color: #fff;
+}
+.error {
+    background: #ff0;
+    border-color: #fc0;
+}
+#overlay {
+  z-index:1;
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background-color:rgba(0,0,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+#content{
+  z-index:2;
+  width:40rem;
+  height: auto;
+  padding: 1em;
+  background:#fff;
 }
 </style>
